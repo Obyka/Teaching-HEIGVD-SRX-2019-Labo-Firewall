@@ -397,18 +397,18 @@ Faire une capture du ping.
 
 | De Client\_in\_LAN à | OK/KO | Commentaires et explications |
 | :---                 | :---: | :---                         |
-| Interface DMZ du FW  |       |                              |
-| Interface LAN du FW  |       |                              |
-| Client LAN           |       |                              |
-| Serveur WAN          |       |                              |
+| Interface DMZ du FW  | KO    | INPUT DROP ALL               |
+| Interface LAN du FW  | KO    |  INPUT DROP ALL              |
+| Client LAN           | OK    |    Oui (localhost)           |
+| Serveur WAN          | OK    |  Oui on a défini la règle forward        |
 
 
 | De Server\_in\_DMZ à | OK/KO | Commentaires et explications |
 | :---                 | :---: | :---                         |
-| Interface DMZ du FW  |       |                              |
-| Interface LAN du FW  |       |                              |
-| Serveur DMZ          |       |                              |
-| Serveur WAN          |       |                              |
+| Interface DMZ du FW  |   KO  |  INPUT DROP                  |
+| Interface LAN du FW  |    KO |        INPUT DROP                 |
+| Serveur DMZ          |   OK  |       localhost                       |
+| Serveur WAN          |  KO   |                FORWARD DROP              |
 
 
 ## Règles pour le protocole DNS
