@@ -227,7 +227,7 @@ ping 192.168.200.3
 ---
 
 **LIVRABLE : capture d'écran de votre tentative de ping.**  
-
+![image](https://user-images.githubusercontent.com/28777250/55253727-69f77180-5256-11e9-9f28-1e5ff461e044.png)
 ---
 
 En effet, la communication entre les clients dans le LAN et les serveurs dans la DMZ doit passer à travers le Firewall. Il faut donc définir le Firewall comme passerelle par défaut pour le client dans le LAN et le serveur dans la DMZ.
@@ -259,6 +259,7 @@ ping 192.168.100.3
 ---
 
 **LIVRABLE : capture d'écran de votre nouvelle tentative de ping.**
+![image](https://user-images.githubusercontent.com/28777250/55253776-83002280-5256-11e9-9c09-888f3a4fe290.png)
 
 ---
 
