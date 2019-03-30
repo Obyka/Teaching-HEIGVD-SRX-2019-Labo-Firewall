@@ -125,7 +125,6 @@ _Lors de la définition d'une zone, spécifier l'adresse du sous-réseau IP avec
 
 | Adresse IP source | Adresse IP destination | Type | Port src | Port dst | Action |
 | :---:             | :---:                  | :---:| :------: | :------: | :----: |
-| any                  | any                       | any     |  any        |    any      | drop       |
 |  192.168.100.0/24 | interface WAN                |  TCP & UDP    |  any        |    53      |  accept      |
 |  interface WAN    |  192.168.100.0/24            | TCP & UDP     |      53    |      any    |  accept      |
 |  192.168.100.0/24 |  interface WAN               | TCP     |   any      |    80 (8080)      |  accept      |
@@ -146,6 +145,8 @@ _Lors de la définition d'une zone, spécifier l'adresse du sous-réseau IP avec
 |  192.168.200.0/24 |  192.168.100.0/24        | ICMP  8   |         |          |  accept      |
 |  192.168.100.0/24 |  interface WAN           | ICMP  8   |         |          |  accept      |
 |  interface WAN |  192.168.100.0/24           | ICMP  0   |         |          |  accept      |
+| any                  | any                       | any     |  any        |    any      | drop       |
+
 
 ---
 
