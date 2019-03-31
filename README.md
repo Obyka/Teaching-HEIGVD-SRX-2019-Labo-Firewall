@@ -242,7 +242,7 @@ ping 192.168.200.3
 ```
 ---
 
-**LIVRABLE : capture d'écran de votre tentative de ping.**  
+**LIVRABLE : capture d'écran de votre tentative de ping.**      
 ![image](https://user-images.githubusercontent.com/28777250/55253727-69f77180-5256-11e9-9f28-1e5ff461e044.png)
 ---
 
@@ -274,7 +274,7 @@ ping 192.168.100.3
 
 ---
 
-**LIVRABLE : capture d'écran de votre nouvelle tentative de ping.**
+**LIVRABLE : capture d'écran de votre nouvelle tentative de ping.**   
 ![image](https://user-images.githubusercontent.com/28777250/55253776-83002280-5256-11e9-9c09-888f3a4fe290.png)
 
 ---
@@ -289,7 +289,7 @@ ping 8.8.8.8
 
 ---
 
-**LIVRABLE : capture d'écran de votre ping vers l'Internet.**
+**LIVRABLE : capture d'écran de votre ping vers l'Internet.**   
 ![image](images/WAN_KO.PNG)
 ---
 
@@ -416,7 +416,7 @@ ping 8.8.8.8
 Faire une capture du ping.
 
 ---
-**LIVRABLE : capture d'écran de votre ping vers l'Internet.**
+**LIVRABLE : capture d'écran de votre ping vers l'Internet.**   
 ![images](images/WAN_OK.PNG)
 ---
 
@@ -430,7 +430,7 @@ Faire une capture du ping.
 | :---                 | :---: | :---                         |
 | Interface DMZ du FW  | KO    | INPUT DROP ALL               |
 | Interface LAN du FW  | KO    |  INPUT DROP ALL              |
-| Client LAN           | OK    |    Oui (localhost)           |
+| Client LAN           | OK    |    Même Subnet        |
 | Serveur WAN          | OK    |  Oui on a défini la règle forward        |
 
 
@@ -438,7 +438,7 @@ Faire une capture du ping.
 | :---                 | :---: | :---                         |
 | Interface DMZ du FW  |   KO  |  INPUT DROP                  |
 | Interface LAN du FW  |    KO |        INPUT DROP                 |
-| Serveur DMZ          |   OK  |       localhost                       |
+| Serveur DMZ          |   OK  |       Même Subnet                     |
 | Serveur WAN          |  KO   |                FORWARD DROP              |
 
 
@@ -457,7 +457,7 @@ ping www.google.com
 
 ---
 
-**LIVRABLE : capture d'écran de votre ping.**
+**LIVRABLE : capture d'écran de votre ping.**   
 ![image](images/DNS-KO.PNG)
 ---
 
@@ -483,7 +483,7 @@ iptables -A FORWARD -p tcp -s 192.168.100.0/24 --dport 53 -o eth0 -m conntrack -
 
 ---
 
-**LIVRABLE : capture d'écran de votre ping.**
+**LIVRABLE : capture d'écran de votre ping.**   
 ![image](images/DNS-OK.PNG)
 ---
 
@@ -497,6 +497,7 @@ iptables -A FORWARD -p tcp -s 192.168.100.0/24 --dport 53 -o eth0 -m conntrack -
 
 **LIVRABLE : Votre réponse ici...**   
 Le client n'ayant pas accès à un serveur DNS connaissant le nom de domaine `www.google.com`, il ne sait pas à quelle adresse IP correspond ce nom de domaine.
+
 ---
 
 
@@ -546,12 +547,12 @@ iptables -A FORWARD -p tcp -i eth0 --dport 80 -d 192.168.200.3 -m conntrack --ct
 
 ---
 
-**LIVRABLE : capture d'écran.**   
-Serveur Web WAN:
+**LIVRABLE : capture d'écran.**    
+Serveur Web WAN:  
 ![image](images/WGET-OK.PNG)
 
 
-Serveur Web DMZ
+Serveur Web DMZ:  
 ![image](images/WGET-DMZ-OK.PNG)
 
 ---
@@ -587,7 +588,7 @@ ssh root@192.168.200.3 (password : celui que vous avez configuré)
 
 ---
 
-**LIVRABLE : capture d'écran de votre connexion ssh.**
+**LIVRABLE : capture d'écran de votre connexion ssh.**    
 ![image](images/SSH-OK.PNG)
 ---
 
@@ -599,7 +600,7 @@ ssh root@192.168.200.3 (password : celui que vous avez configuré)
 ---
 **Réponse**
 
-**LIVRABLE : Votre réponse ici...**   
+**LIVRABLE : Votre réponse ici...**     
 SSH nous permet de nous connecté sur le serveur à distance et de manière sécurisé.
 
 ---
@@ -628,6 +629,6 @@ A présent, vous devriez avoir le matériel nécessaire afin de reproduire la ta
 
 ---
 
-**LIVRABLE : capture d'écran avec toutes vos règles.**
+**LIVRABLE : capture d'écran avec toutes vos règles.**    
 ![image](images/IPTABLES-CONFIG.PNG)
 ---
