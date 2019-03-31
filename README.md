@@ -495,8 +495,8 @@ iptables -A FORWARD -p tcp -s 192.168.100.0/24 --dport 53 -o eth0 -m conntrack -
 ---
 **Réponse**
 
-**LIVRABLE : Votre réponse ici...**
-
+**LIVRABLE : Votre réponse ici...**   
+Le client n'ayant pas accès à un serveur DNS connaissant le nom de domaine `www.google.com`, il ne sait pas à quelle adresse IP correspond ce nom de domaine.
 ---
 
 
@@ -546,8 +546,14 @@ iptables -A FORWARD -p tcp -i eth0 --dport 80 -d 192.168.200.3 -m conntrack --ct
 
 ---
 
-**LIVRABLE : capture d'écran.**
+**LIVRABLE : capture d'écran.**   
+Serveur Web WAN:
 ![image](images/WGET-OK.PNG)
+
+
+Serveur Web DMZ
+![image](images/WGET-DMZ-OK.PNG)
+
 ---
 
 
