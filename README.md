@@ -1,4 +1,5 @@
 # Teaching-HEIGVD-SRX-2019-Laboratoire-Firewall
+Etudiants : Mercier Jordan, Polier Florian, Tran Eric   
 
 **ATTENTION : Commencez par créer un Fork de ce repo et travaillez sur votre fork.**
 
@@ -289,7 +290,7 @@ ping 8.8.8.8
 ---
 
 **LIVRABLE : capture d'écran de votre ping vers l'Internet.**
-
+![image](images/WAN_KO.PNG)
 ---
 
 ### Configuration réseau du firewall
@@ -383,8 +384,22 @@ Commandes iptables :
 
 ---
 
+**LIVRABLE : Commandes iptables**
 ```bash
-LIVRABLE : Commandes iptables
+# réponses de conversation et paquets invalides
+iptables -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+iptables -A INPUT -m conntrack --ctstate INVALID -j DROP
+iptables -A OUTPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -m conntrack --ctstate INVALID -j DROP
+iptables -A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+iptables -A FORWARD -m conntrack --ctstate INVALID -j DROP
+
+#2Laisser passer les PING uniquement du LAN au WAN, du LAN à la DMZ et de la DMZ au LAN pour les tests. Le ping utilise le protocole ICMP (echo request et echo reply).
+iptables -A FORWARD -p icmp --icmp-type 8 -s 192.168.100.0/24 -o eth0 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
+iptables -A FORWARD -p icmp --icmp-type 8 -s 192.168.100.0/24 -d 192.168.200.0/24 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
+iptables -A FORWARD -p icmp --icmp-type 8 -s 192.168.200.0/24 -d 192.168.100.0/24 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
+
+
 ```
 ---
 
@@ -402,7 +417,7 @@ Faire une capture du ping.
 
 ---
 **LIVRABLE : capture d'écran de votre ping vers l'Internet.**
-
+![images](images/WAN_OK.PNG)
 ---
 
 <ol type="a" start="3">
@@ -443,7 +458,7 @@ ping www.google.com
 ---
 
 **LIVRABLE : capture d'écran de votre ping.**
-
+![image](images/DNS-KO.PNG)
 ---
 
 * Créer et appliquer la règle adéquate pour que la **condition 1 du cahier des charges** soit respectée.
@@ -451,9 +466,12 @@ ping www.google.com
 Commandes iptables :
 
 ---
-
+**LIVRABLE : Commandes iptables**
 ```bash
-LIVRABLE : Commandes iptables
+#1 Les serveurs DNS utilisés par les postes dans le LAN sont situés sur le WAN. Les services DNS utilisent les ports UDP 53 et TCP 53.
+iptables -A FORWARD -p udp -s 192.168.100.0/24 --dport 53 -o eth0 -m conntrack --ctstate NEW,RELATED,ESTABLISHED -j ACCEPT
+iptables -A FORWARD -p tcp -s 192.168.100.0/24 --dport 53 -o eth0 -m conntrack --ctstate NEW,RELATED,ESTABLISHED -j ACCEPT
+
 ```
 
 ---
@@ -466,7 +484,7 @@ LIVRABLE : Commandes iptables
 ---
 
 **LIVRABLE : capture d'écran de votre ping.**
-
+![image](images/DNS-OK.PNG)
 ---
 
 <ol type="a" start="6">
@@ -495,9 +513,14 @@ wget http://www.heig-vd.ch
 Commandes iptables :
 
 ---
-
+**LIVRABLE : Commandes iptables**
 ```bash
-LIVRABLE : Commandes iptables
+#3Les clients du LAN doivent pouvoir ouvrir des connexions HTTP pour accéder au web. Le protocole HTTP utilise les ports TCP 80 et typiquement aussi le 8080.
+iptables -A FORWARD -p tcp -s 192.168.100.0/24 --dport 80 -o eth0 -m conntrack --ctstate NEW,RELATED,ESTABLISHED -j ACCEPT
+iptables -A FORWARD -p tcp -s 192.168.100.0/24 --dport 8080 -o eth0 -m conntrack --ctstate NEW,RELATED,ESTABLISHED -j ACCEPT
+#4Les clients du LAN doivent pouvoir ouvrir des connexions HTTPS pour accéder au web. Le protocole HTTPS utilise le port TCP 443.
+iptables -A FORWARD -p tcp -s 192.168.100.0/24 --dport 443 -o eth0 -m conntrack --ctstate NEW,RELATED,ESTABLISHED -j ACCEPT
+
 ```
 
 ---
@@ -507,9 +530,12 @@ LIVRABLE : Commandes iptables
 Commandes iptables :
 
 ---
-
+**LIVRABLE : Commandes iptables**
 ```bash
-LIVRABLE : Commandes iptables
+#5Le serveur web en DMZ doit être atteignable par le WAN et le LAN et n'utilise que le port 80.
+iptables -A FORWARD -p tcp -s 192.168.100.0/24 --dport 80 -d 192.168.200.3 -m conntrack --ctstate NEW,RELATED,ESTABLISHED -j ACCEPT
+iptables -A FORWARD -p tcp -i eth0 --dport 80 -d 192.168.200.3 -m conntrack --ctstate NEW,RELATED,ESTABLISHED -j ACCEPT
+
 ```
 ---
 
@@ -521,7 +547,7 @@ LIVRABLE : Commandes iptables
 ---
 
 **LIVRABLE : capture d'écran.**
-
+![image](images/WGET-OK.PNG)
 ---
 
 
@@ -535,9 +561,14 @@ LIVRABLE : Commandes iptables
 Commandes iptables :
 
 ---
-
+**LIVRABLE : Commandes iptables**
 ```bash
-LIVRABLE : Commandes iptables
+
+#6Le serveur de la DMZ peut être commandé à distance par ssh depuis votre client du LAN uniquement. Le service ssh utilise le port TCP 22.
+iptables -A FORWARD -p tcp -s 192.168.100.3 --dport 22 -d 192.168.200.3 -m conntrack --ctstate NEW,RELATED,ESTABLISHED -j ACCEPT
+#7Le firewall peut être configuré à distance par ssh depuis votre client du LAN uniquement.
+iptables -A INPUT -p tcp -s 192.168.100.3 --dport 22 -d 192.168.100.2 -m conntrack --ctstate NEW,RELATED,ESTABLISHED -j ACCEPT
+
 ```
 
 ---
@@ -551,7 +582,7 @@ ssh root@192.168.200.3 (password : celui que vous avez configuré)
 ---
 
 **LIVRABLE : capture d'écran de votre connexion ssh.**
-
+![image](images/SSH-OK.PNG)
 ---
 
 <ol type="a" start="9">
@@ -562,7 +593,8 @@ ssh root@192.168.200.3 (password : celui que vous avez configuré)
 ---
 **Réponse**
 
-**LIVRABLE : Votre réponse ici...**
+**LIVRABLE : Votre réponse ici...**   
+SSH nous permet de nous connecté sur le serveur à distance et de manière sécurisé.
 
 ---
 
@@ -591,5 +623,5 @@ A présent, vous devriez avoir le matériel nécessaire afin de reproduire la ta
 ---
 
 **LIVRABLE : capture d'écran avec toutes vos règles.**
-
+![image](images/IPTABLES-CONFIG.PNG)
 ---
