@@ -601,7 +601,7 @@ ssh root@192.168.200.3 (password : celui que vous avez configuré)
 **Réponse**
 
 **LIVRABLE : Votre réponse ici...**     
-SSH nous permet de nous connecté sur le serveur à distance et de manière sécurisé.
+SSH nous permet de nous connecter sur le serveur à distance et de manière sécurisée.
 
 ---
 
@@ -615,6 +615,8 @@ SSH nous permet de nous connecté sur le serveur à distance et de manière séc
 **Réponse**
 
 **LIVRABLE : Votre réponse ici...**
+
+SSH devrait être ouvert pour des IP sources et IP dest spécifiques. Par exemple, un ingénieur réseau voudra configurer son firewall, mais les utilisateurs du même sous-réseaux que lui ne devraient pas pouvoir. Dans l'autre sens, seul l'ip du firewall devrait être la destination, pas un sous-réseau complet (pas de connexion ssh sur une machine dest quelconque). 
 
 ---
 
