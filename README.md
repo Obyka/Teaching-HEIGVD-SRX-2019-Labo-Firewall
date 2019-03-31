@@ -630,5 +630,10 @@ A présent, vous devriez avoir le matériel nécessaire afin de reproduire la ta
 ---
 
 **LIVRABLE : capture d'écran avec toutes vos règles.**    
+Résultat iptables:    
 ![image](images/IPTABLES-CONFIG.PNG)
+
+Commandes iptables tapées:    
+![image](images/IPTABLES-COMMANDE.PNG)
+
 ---
